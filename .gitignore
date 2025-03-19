@@ -1,0 +1,5 @@
+*.pt
+.idea
+.venv
+*.mp4
+*.avi
