@@ -9,8 +9,11 @@ import threading
 from langchain_core.messages import HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 from vidgear.gears import CamGear
+from dotenv import load_dotenv
+load_dotenv()
 
-GOOGLE_API_KEY = "AIzaSyAJIHBNfUdgy7LnwOmtVlbcgxe5bAlLCxo"
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
+# print(GOOGLE_API_KEY)
 os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 
 youtube_stream_link = "https://www.youtube.com/watch?v=zPMGa6ckrqM"
