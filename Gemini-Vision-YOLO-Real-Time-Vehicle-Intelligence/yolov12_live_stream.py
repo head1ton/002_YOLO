@@ -32,8 +32,8 @@ class VehicleDetectionProcessor:
         except Exception as e:
             raise RuntimeError(f"Error loading YOLO model: {e}")
 
-        self.area = np.array([(287, 366), (386, 456), (470, 428), (378, 349)], np.int32)
-        self.area1 = np.array([(379, 346), (473, 422), (562, 399), (465, 326)], np.int32)
+        self.area = np.array([(267, 353), (386, 456), (470, 428), (351, 328)], np.int32)
+        self.area1 = np.array([(364, 326), (473, 422), (562, 399), (443, 321)], np.int32)
 
         self.processed_track_ids = set()
         self.track_id_color_map = {}
@@ -139,6 +139,15 @@ class VehicleDetectionProcessor:
                 if track_id in car_up:
                     if cv2.pointPolygonTest(self.area1, (cx, cy), False) >= 0:
                         direction = "Up"
+                        self.draw_info(frame, box, track_id)
+                        self.crop_and_process(frame, box, track_id, direction)
+
+                if cv2.pointPolygonTest(self.area1, (cx, cy), False) >= 0:
+                    car_down[track_id] = (cx, cy)
+
+                if track_id in car_down:
+                    if cv2.pointPolygonTest(self.area, (cx, cy), False) >= 0:
+                        direction = "Down"
                         self.draw_info(frame, box, track_id)
                         self.crop_and_process(frame, box, track_id, direction)
 
