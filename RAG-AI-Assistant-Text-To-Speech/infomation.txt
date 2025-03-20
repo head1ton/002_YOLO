@@ -1,0 +1,10 @@
+Retrieval Component
+
+The system extracts text from an uploaded PDF (get_pdf_text).
+It splits the text into chunks using RecursiveCharacterTextSplitter (split_text).
+The text chunks are embedded using Google Generative AI Embeddings and stored in a FAISS vector database (create_vector_store).
+At query time, the most relevant text chunks are retrieved using FAISS similarity search (handle_query).
+Generation Component
+
+The retrieved text chunks serve as context for the AI model.
+A Groq model (qwen-2.5-32b) generates a response based on both the query and the retrieved context.
